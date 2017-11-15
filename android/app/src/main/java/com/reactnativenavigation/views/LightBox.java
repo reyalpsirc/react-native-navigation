@@ -20,6 +20,11 @@ import com.reactnativenavigation.R;
 import com.reactnativenavigation.params.LightBoxParams;
 import com.reactnativenavigation.screens.Screen;
 import com.reactnativenavigation.utils.ViewUtils;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.UIManagerModule;
+import com.reactnativenavigation.NavigationApplication;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -34,7 +39,7 @@ public class LightBox extends Dialog implements DialogInterface.OnDismissListene
     public LightBox(AppCompatActivity activity, Runnable onDismissListener, LightBoxParams params) {
         super(activity, R.style.LightBox);
         this.onDismissListener = onDismissListener;
-        this.cancelable =!params.overrideBackPress; 
+        this.cancelable =!params.overrideBackPress;
         setOnDismissListener(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         createContent(activity, params);
@@ -52,7 +57,20 @@ public class LightBox extends Dialog implements DialogInterface.OnDismissListene
         lightBox.setAlpha(0);
         content = new ContentView(context, params.screenId, params.navigationParams);
         content.setAlpha(0);
+
         content.setId(ViewUtils.generateViewId());
+        // --- Start of the hack --- Bug with dismissing lightBox
+        // int rootViewTag = ViewUtils.generateViewId();
+        // content.setRootViewTag(View.NO_ID);
+        // content.setId(View.NO_ID);
+        // ReactContext reactContext = NavigationApplication.instance.getReactGateway().getReactInstanceManager().getCurrentReactContext();
+        // ThemedReactContext themedReactContext = new ThemedReactContext((ReactApplicationContext) reactContext, content.getContext());
+        // reactContext.getNativeModule(UIManagerModule.class).getUIImplementation().registerRootView(
+        //         content, rootViewTag, 0, 0, themedReactContext
+        // );
+        // content.setId(rootViewTag);
+        // --- End of the hack ---
+
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lp.addRule(RelativeLayout.CENTER_IN_PARENT, content.getId());
         lightBox.setBackgroundColor(params.backgroundColor.getColor());
@@ -107,7 +125,7 @@ public class LightBox extends Dialog implements DialogInterface.OnDismissListene
     }
 
     public void destroy() {
-        content.unmountReactView();
+        // content.unmountReactView();
         dismiss();
     }
 
