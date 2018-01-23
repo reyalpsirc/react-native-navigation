@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.graphics.Color;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.facebook.react.bridge.Arguments;
@@ -92,6 +93,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
             return;
         }
         sideMenu = new SideMenu(getContext(), leftSideMenuParams, rightSideMenuParams);
+        sideMenu.setScrimColor(Color.parseColor("#9935afc8"));
         RelativeLayout.LayoutParams lp = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
         addView(sideMenu, lp);
     }
