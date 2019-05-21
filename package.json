@@ -53,16 +53,13 @@
     "jest-react-native": "18.x.x",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
-    "react-native": "0.43.0",
+    "react-native": "0.52.0",
     "react-test-renderer": "15.4.2",
     "semver": "5.x.x"
   },
   "jest": {
     "preset": "jest-react-native",
-    "testPathDirs": [
-      "node_modules",
-      "src2"
-    ],
+    "testPathDirs": ["node_modules", "src2"],
     "resetMocks": true,
     "resetModules": true
   }
