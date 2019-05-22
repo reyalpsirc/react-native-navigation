@@ -4,8 +4,10 @@ import android.app.Activity;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.JavaJSExecutor;
+import com.facebook.react.bridge.NativeDeltaClient;
 import com.facebook.react.devsupport.ReactInstanceManagerDevHelper;
 import com.reactnativenavigation.utils.ReflectionUtils;
+
 import android.support.annotation.Nullable;
 
 class JsDevReloadListenerReplacer {
@@ -61,6 +63,7 @@ class JsDevReloadListenerReplacer {
             listener.onJsDevReload();
             originalReactHandler.onJSBundleLoadedFromServer(nativeDeltaClient);
         }
+
 
         @Override
         public void toggleElementInspector() {
