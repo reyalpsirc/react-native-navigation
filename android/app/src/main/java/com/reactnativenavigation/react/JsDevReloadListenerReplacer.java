@@ -56,9 +56,9 @@ class JsDevReloadListenerReplacer {
         }
 
         @Override
-        public void onJSBundleLoadedFromServer() {
+        public void onJSBundleLoadedFromServer(@Nullable NativeDeltaClient nativeDeltaClient) {
             listener.onJsDevReload();
-            originalReactHandler.onJSBundleLoadedFromServer();
+            originalReactHandler.onJSBundleLoadedFromServer(nativeDeltaClient);
         }
 
         @Override
